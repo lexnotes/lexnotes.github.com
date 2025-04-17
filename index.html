@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LexNotes</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Header -->
+  <header class="bg-white shadow p-4">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">LexNotes</h1>
+      <nav>
+        <a href="#home" class="mx-2">Home</a>
+        <a href="#notes" class="mx-2">Notes</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home" class="max-w-5xl mx-auto py-8 px-4">
+    <h2 class="text-2xl font-semibold mb-2">Welcome to LexNotes</h2>
+    <p class="mb-4">A simple place to browse and download study notes, especially for law students. All notes are free and accessible.</p>
+  </section>
+
+  <!-- Notes Section -->
+  <section id="notes" class="max-w-5xl mx-auto py-8 px-4">
+    <div class="mb-4">
+      <input type="text" id="search" placeholder="Search notes..." class="w-full p-2 border rounded" onkeyup="filterNotes()" />
+    </div>
+    <div id="notesList" class="grid gap-4 md:grid-cols-2">
+      <!-- Example note items -->
+      <div class="bg-white p-4 rounded shadow note-item">
+        <h3 class="font-semibold">Contract Law Basics</h3>
+        <a href="notes/contract-law.pdf" class="text-blue-500 underline" download>Download PDF</a>
+      </div>
+      <div class="bg-white p-4 rounded shadow note-item">
+        <h3 class="font-semibold">Criminal Law Overview</h3>
+        <a href="notes/criminal-law.pdf" class="text-blue-500 underline" download>Download PDF</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upload Page (Password protected) -->
+  <section id="upload" class="max-w-5xl mx-auto py-8 px-4 hidden">
+    <h2 class="text-xl font-bold mb-2">Upload New Note</h2>
+    <form id="uploadForm">
+      <input type="file" accept="application/pdf" class="block mb-4" required />
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Upload</button>
+    </form>
+  </section>
+
+  <script>
+    // Simple search filter
+    function filterNotes() {
+      const search = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.note-item').forEach(note => {
+        note.style.display = note.innerText.toLowerCase().includes(search) ? 'block' : 'none';
+      });
+    }
+
+    // Show upload page only if user knows the password
+    const password = prompt("Enter password to access upload page:");
+    if (password === "mynotes123") {
+      document.getElementById('upload').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
